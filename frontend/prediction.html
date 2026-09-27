@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Prediction | ChurnGuard</title><link rel="stylesheet" href="/style.css"></head>
+<body>
+<nav class="navbar">
+  <a class="brand" href="/"><span class="brand-icon">CG</span><span>Churn<span class="brand-highlight">Guard</span></span></a>
+  <div class="nav-links">
+    <a href="/dashboard.html">Dashboard</a>
+    <a href="/prediction.html">Prediction</a>
+    <a href="/history.html">History</a>
+    <a href="/report.html">Reports</a>
+    <a href="/monitoring.html">Monitoring</a>
+    <button id="logoutButton" class="nav-button">Logout</button>
+  </div>
+  <button class="mobile-menu" id="mobileMenu">☰</button>
+</nav>
+<div class="app-shell">
+<aside class="sidebar" id="sidebar">
+  <a class="brand" href="/"><span class="brand-icon">CG</span><span>Churn<span class="brand-highlight">Guard</span></span></a>
+  <div class="sidebar-label">WORKSPACE</div>
+  <nav class="sidebar-menu">
+    <a href="/dashboard.html"><span class="sidebar-icon">⌂</span>Dashboard</a>
+    <a href="/prediction.html"><span class="sidebar-icon">✦</span>Prediction</a>
+    <a href="/history.html"><span class="sidebar-icon">↺</span>History</a>
+    <a href="/report.html"><span class="sidebar-icon">▤</span>Reports</a>
+    <a href="/monitoring.html"><span class="sidebar-icon">◉</span>Monitoring</a>
+  </nav>
+  <div class="sidebar-label">ACCOUNT</div>
+  <nav class="sidebar-menu">
+    <button id="logoutButton"><span class="sidebar-icon">↪</span>Logout</button>
+  </nav>
+  <div class="sidebar-user">
+    <div class="avatar" id="userAvatar">U</div>
+    <div class="user-info"><strong id="sideUsername">User</strong><span>ChurnGuard user</span></div>
+  </div>
+</aside>
+<main class="main-content">
+<div class="page-header"><div><span class="section-label">MODEL INFERENCE</span><h1>Customer churn prediction</h1><p>Upload the 20-column telecom customer CSV supported by the current ChurnGuard backend.</p></div></div>
+<section class="upload-container">
+<div class="upload-card"><div class="card-header" style="padding:0 0 18px;border:0"><div><h2>Upload customer CSV</h2><p>Required columns are validated by the backend before inference.</p></div></div>
+<form id="predictionForm"><div id="uploadZone" class="upload-zone"><div class="upload-icon">CSV</div><h3>Choose a customer dataset</h3><p class="muted">CSV files only. You can also drag and drop a file here.</p><input id="csvFile" type="file" accept=".csv" required><div id="fileName" class="file-name">No file selected</div></div><div id="predictionMessage" class="message"></div><button id="predictButton" class="btn btn-primary full-width" type="submit">Run churn prediction</button></form></div>
+<div class="upload-card"><div class="card-header" style="padding:0 0 18px;border:0"><div><h2>Risk interpretation</h2><p>ChurnGuard uses the probability returned by the model.</p></div></div>
+<div class="risk-list"><div class="risk-row"><span class="risk-name">High</span><div class="progress"><div class="progress-bar progress-high" style="width:100%"></div></div><span class="risk-number">70–100%</span></div><div class="risk-row"><span class="risk-name">Medium</span><div class="progress"><div class="progress-bar progress-medium" style="width:70%"></div></div><span class="risk-number">40–69%</span></div><div class="risk-row"><span class="risk-name">Low</span><div class="progress"><div class="progress-bar progress-low" style="width:40%"></div></div><span class="risk-number">0–39%</span></div></div>
+<p class="muted" style="font-size:12px;line-height:1.7;margin-top:24px">Every returned prediction is also saved to the authenticated user's prediction history.</p></div></section>
+<section id="predictionResultsSection" style="display:none;margin-top:20px"><div class="card"><div class="card-header"><div><h2>Prediction results</h2><p id="resultsSubtitle">Customer-level model output</p></div><a href="/history.html" class="btn btn-secondary">Open history</a></div><div class="card-body"><div id="predictionSummary" class="result-grid"></div><div class="table-wrap"><table class="data-table"><thead><tr><th>Customer ID</th><th>Prediction</th><th>Probability</th><th>Risk</th></tr></thead><tbody id="predictionTableBody"></tbody></table></div></div></div></section>
+</main></div>
+<script src="/js/script.js"></script><script src="/js/prediction.js"></script></body></html>

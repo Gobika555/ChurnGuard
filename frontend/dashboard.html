@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Dashboard | ChurnGuard</title><link rel="stylesheet" href="/style.css"></head>
+<body>
+<nav class="navbar">
+  <a class="brand" href="/"><span class="brand-icon">CG</span><span>Churn<span class="brand-highlight">Guard</span></span></a>
+  <div class="nav-links">
+    <a href="/dashboard.html">Dashboard</a>
+    <a href="/prediction.html">Prediction</a>
+    <a href="/history.html">History</a>
+    <a href="/report.html">Reports</a>
+    <a href="/monitoring.html">Monitoring</a>
+    <button id="logoutButton" class="nav-button">Logout</button>
+  </div>
+  <button class="mobile-menu" id="mobileMenu">☰</button>
+</nav>
+<div class="app-shell">
+<aside class="sidebar" id="sidebar">
+  <a class="brand" href="/"><span class="brand-icon">CG</span><span>Churn<span class="brand-highlight">Guard</span></span></a>
+  <div class="sidebar-label">WORKSPACE</div>
+  <nav class="sidebar-menu">
+    <a href="/dashboard.html"><span class="sidebar-icon">⌂</span>Dashboard</a>
+    <a href="/prediction.html"><span class="sidebar-icon">✦</span>Prediction</a>
+    <a href="/history.html"><span class="sidebar-icon">↺</span>History</a>
+    <a href="/report.html"><span class="sidebar-icon">▤</span>Reports</a>
+    <a href="/monitoring.html"><span class="sidebar-icon">◉</span>Monitoring</a>
+  </nav>
+  <div class="sidebar-label">ACCOUNT</div>
+  <nav class="sidebar-menu">
+    <button id="logoutButton"><span class="sidebar-icon">↪</span>Logout</button>
+  </nav>
+  <div class="sidebar-user">
+    <div class="avatar" id="userAvatar">U</div>
+    <div class="user-info"><strong id="sideUsername">User</strong><span>ChurnGuard user</span></div>
+  </div>
+</aside>
+<main class="main-content">
+<div class="page-header"><div><span class="section-label">AI CUSTOMER INTELLIGENCE</span><h1>Welcome back, <span id="username">User</span></h1><p>Monitor prediction activity and understand your customer risk distribution.</p></div><div class="page-actions"><a class="btn btn-primary" href="/prediction.html">+ New prediction</a></div></div>
+<div id="dashboardMessage" class="message"></div>
+<section class="kpi-grid">
+<div class="kpi-card"><div class="kpi-top"><span class="kpi-label">TOTAL PREDICTIONS</span><span class="kpi-icon">AI</span></div><strong id="totalPredictions" class="kpi-value">0</strong><span class="kpi-sub">Customers analyzed</span></div>
+<div class="kpi-card"><div class="kpi-top"><span class="kpi-label">HIGH RISK</span><span class="kpi-icon">!</span></div><strong id="highRisk" class="kpi-value">0</strong><span class="kpi-sub">Probability ≥ 70%</span></div>
+<div class="kpi-card"><div class="kpi-top"><span class="kpi-label">MEDIUM RISK</span><span class="kpi-icon">≈</span></div><strong id="mediumRisk" class="kpi-value">0</strong><span class="kpi-sub">Probability 40–69%</span></div>
+<div class="kpi-card"><div class="kpi-top"><span class="kpi-label">AVERAGE RISK</span><span class="kpi-icon">%</span></div><strong id="averageRisk" class="kpi-value">0%</strong><span class="kpi-sub">Average churn probability</span></div>
+</section>
+<div class="dashboard-grid">
+<section class="card"><div class="card-header"><div><h2>Risk distribution</h2><p>Current signed-in user's saved predictions</p></div></div><div class="card-body"><div class="risk-list">
+<div class="risk-row"><span class="risk-name">High</span><div class="progress"><div id="highProgress" class="progress-bar progress-high" style="width:0%"></div></div><span id="highCount" class="risk-number">0</span></div>
+<div class="risk-row"><span class="risk-name">Medium</span><div class="progress"><div id="mediumProgress" class="progress-bar progress-medium" style="width:0%"></div></div><span id="mediumCount" class="risk-number">0</span></div>
+<div class="risk-row"><span class="risk-name">Low</span><div class="progress"><div id="lowProgress" class="progress-bar progress-low" style="width:0%"></div></div><span id="lowCount" class="risk-number">0</span></div>
+</div></div></section>
+<section class="card"><div class="card-header"><div><h2>Latest activity</h2><p>Most recent saved predictions</p></div><a href="/history.html" class="section-label">View all</a></div><div class="card-body"><div id="recentPredictions" class="monitor-list"></div></div></section>
+<section class="card dashboard-wide"><div class="card-header"><div><h2>Quick actions</h2><p>Move through the ChurnGuard workflow</p></div></div><div class="card-body"><div class="action-grid">
+<a class="action-card" href="/prediction.html"><div class="action-icon">+</div><h3>New prediction</h3><p>Upload a telecom customer CSV and run the trained model.</p><span class="action-arrow">→</span></a>
+<a class="action-card" href="/history.html"><div class="action-icon">↺</div><h3>Prediction history</h3><p>Review customer-level predictions saved to SQLite.</p><span class="action-arrow">→</span></a>
+<a class="action-card" href="/report.html"><div class="action-icon">▤</div><h3>Analytics report</h3><p>Generate a clear summary from your current prediction history.</p><span class="action-arrow">→</span></a>
+<a class="action-card" href="/monitoring.html"><div class="action-icon">◉</div><h3>Model monitoring</h3><p>Review evaluation metrics and live prediction distribution.</p><span class="action-arrow">→</span></a>
+</div></div></section>
+</div>
+</main></div>
+<script src="/js/script.js"></script><script src="/js/dashboard.js"></script></body></html>

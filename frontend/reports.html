@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Report | ChurnGuard</title><link rel="stylesheet" href="/style.css"></head>
+<body>
+<nav class="navbar">
+  <a class="brand" href="/"><span class="brand-icon">CG</span><span>Churn<span class="brand-highlight">Guard</span></span></a>
+  <div class="nav-links">
+    <a href="/dashboard.html">Dashboard</a>
+    <a href="/prediction.html">Prediction</a>
+    <a href="/history.html">History</a>
+    <a href="/report.html">Reports</a>
+    <a href="/monitoring.html">Monitoring</a>
+    <button id="logoutButton" class="nav-button">Logout</button>
+  </div>
+  <button class="mobile-menu" id="mobileMenu">☰</button>
+</nav>
+<div class="app-shell">
+<aside class="sidebar" id="sidebar">
+  <a class="brand" href="/"><span class="brand-icon">CG</span><span>Churn<span class="brand-highlight">Guard</span></span></a>
+  <div class="sidebar-label">WORKSPACE</div>
+  <nav class="sidebar-menu">
+    <a href="/dashboard.html"><span class="sidebar-icon">⌂</span>Dashboard</a>
+    <a href="/prediction.html"><span class="sidebar-icon">✦</span>Prediction</a>
+    <a href="/history.html"><span class="sidebar-icon">↺</span>History</a>
+    <a href="/report.html"><span class="sidebar-icon">▤</span>Reports</a>
+    <a href="/monitoring.html"><span class="sidebar-icon">◉</span>Monitoring</a>
+  </nav>
+  <div class="sidebar-label">ACCOUNT</div>
+  <nav class="sidebar-menu">
+    <button id="logoutButton"><span class="sidebar-icon">↪</span>Logout</button>
+  </nav>
+  <div class="sidebar-user">
+    <div class="avatar" id="userAvatar">U</div>
+    <div class="user-info"><strong id="sideUsername">User</strong><span>ChurnGuard user</span></div>
+  </div>
+</aside>
+<main class="main-content">
+<div class="page-header"><div><span class="section-label">BUSINESS ANALYTICS</span><h1>Churn analytics report</h1><p>This report is calculated from the current user's saved prediction history.</p></div><div class="page-actions"><button id="printReport" class="btn btn-secondary">Print / Save PDF</button></div></div>
+<div id="reportMessage" class="message">Loading report...</div>
+<section class="kpi-grid">
+<div class="kpi-card"><div class="kpi-top"><span class="kpi-label">CUSTOMERS ANALYZED</span><span class="kpi-icon">#</span></div><strong id="reportTotal" class="kpi-value">0</strong><span class="kpi-sub">Saved predictions</span></div>
+<div class="kpi-card"><div class="kpi-top"><span class="kpi-label">HIGH RISK</span><span class="kpi-icon">!</span></div><strong id="reportHigh" class="kpi-value">0</strong><span class="kpi-sub">70–100%</span></div>
+<div class="kpi-card"><div class="kpi-top"><span class="kpi-label">MEDIUM RISK</span><span class="kpi-icon">≈</span></div><strong id="reportMedium" class="kpi-value">0</strong><span class="kpi-sub">40–69%</span></div>
+<div class="kpi-card"><div class="kpi-top"><span class="kpi-label">AVERAGE RISK</span><span class="kpi-icon">%</span></div><strong id="reportAverage" class="kpi-value">0%</strong><span class="kpi-sub">Average probability</span></div>
+</section>
+<div class="report-grid"><section class="card"><div class="card-header"><div><h2>Risk composition</h2><p>Percentage of current prediction history</p></div></div><div class="card-body"><div class="metric-list"><div class="metric-line"><span>High</span><div class="progress"><div id="reportHighBar" class="progress-bar progress-high" style="width:0%"></div></div><strong id="reportHighPct">0%</strong></div><div class="metric-line"><span>Medium</span><div class="progress"><div id="reportMediumBar" class="progress-bar progress-medium" style="width:0%"></div></div><strong id="reportMediumPct">0%</strong></div><div class="metric-line"><span>Low</span><div class="progress"><div id="reportLowBar" class="progress-bar progress-low" style="width:0%"></div></div><strong id="reportLowPct">0%</strong></div></div></div></section>
+<section class="card"><div class="card-header"><div><h2>Interpretation</h2><p>Data-driven summary of the current prediction set</p></div></div><div class="card-body"><div id="reportInsight" class="status-card"></div></div></section></div>
+</main></div>
+<script src="/js/script.js"></script><script src="/js/report.js"></script></body></html>

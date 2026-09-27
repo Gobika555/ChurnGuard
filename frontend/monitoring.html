@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Monitoring | ChurnGuard</title><link rel="stylesheet" href="/style.css"></head>
+<body>
+<nav class="navbar">
+  <a class="brand" href="/"><span class="brand-icon">CG</span><span>Churn<span class="brand-highlight">Guard</span></span></a>
+  <div class="nav-links">
+    <a href="/dashboard.html">Dashboard</a>
+    <a href="/prediction.html">Prediction</a>
+    <a href="/history.html">History</a>
+    <a href="/report.html">Reports</a>
+    <a href="/monitoring.html">Monitoring</a>
+    <button id="logoutButton" class="nav-button">Logout</button>
+  </div>
+  <button class="mobile-menu" id="mobileMenu">☰</button>
+</nav>
+<div class="app-shell">
+<aside class="sidebar" id="sidebar">
+  <a class="brand" href="/"><span class="brand-icon">CG</span><span>Churn<span class="brand-highlight">Guard</span></span></a>
+  <div class="sidebar-label">WORKSPACE</div>
+  <nav class="sidebar-menu">
+    <a href="/dashboard.html"><span class="sidebar-icon">⌂</span>Dashboard</a>
+    <a href="/prediction.html"><span class="sidebar-icon">✦</span>Prediction</a>
+    <a href="/history.html"><span class="sidebar-icon">↺</span>History</a>
+    <a href="/report.html"><span class="sidebar-icon">▤</span>Reports</a>
+    <a href="/monitoring.html"><span class="sidebar-icon">◉</span>Monitoring</a>
+  </nav>
+  <div class="sidebar-label">ACCOUNT</div>
+  <nav class="sidebar-menu">
+    <button id="logoutButton"><span class="sidebar-icon">↪</span>Logout</button>
+  </nav>
+  <div class="sidebar-user">
+    <div class="avatar" id="userAvatar">U</div>
+    <div class="user-info"><strong id="sideUsername">User</strong><span>ChurnGuard user</span></div>
+  </div>
+</aside>
+<main class="main-content">
+<div class="page-header"><div><span class="section-label">MLOPS OBSERVABILITY</span><h1>Model monitoring</h1><p>Separate the documented offline evaluation snapshot from live prediction behaviour.</p></div></div>
+<div id="monitorMessage" class="message">Loading monitoring data...</div>
+<div class="dashboard-grid">
+<section class="card"><div class="card-header"><div><h2>Offline model evaluation</h2><p>Values from docs/evaluation_report.txt in this project</p></div></div><div class="card-body"><div class="metric-list"><div class="metric-line"><span>Accuracy</span><div class="progress"><div class="progress-bar progress-low" style="width:79.70%"></div></div><strong>79.70%</strong></div><div class="metric-line"><span>Precision</span><div class="progress"><div class="progress-bar progress-medium" style="width:66.67%"></div></div><strong>66.67%</strong></div><div class="metric-line"><span>Recall</span><div class="progress"><div class="progress-bar progress-medium" style="width:46.65%"></div></div><strong>46.65%</strong></div><div class="metric-line"><span>F1</span><div class="progress"><div class="progress-bar progress-medium" style="width:54.89%"></div></div><strong>54.89%</strong></div></div></div></section>
+<section class="card"><div class="card-header"><div><h2>Live prediction distribution</h2><p>Calculated from the authenticated user's saved predictions</p></div></div><div class="card-body"><div class="risk-list"><div class="risk-row"><span class="risk-name">High</span><div class="progress"><div id="monitorHighBar" class="progress-bar progress-high" style="width:0%"></div></div><span id="monitorHigh" class="risk-number">0</span></div><div class="risk-row"><span class="risk-name">Medium</span><div class="progress"><div id="monitorMediumBar" class="progress-bar progress-medium" style="width:0%"></div></div><span id="monitorMedium" class="risk-number">0</span></div><div class="risk-row"><span class="risk-name">Low</span><div class="progress"><div id="monitorLowBar" class="progress-bar progress-low" style="width:0%"></div></div><span id="monitorLow" class="risk-number">0</span></div></div></div></section>
+<section class="card dashboard-wide"><div class="card-header"><div><h2>System status</h2><p>What this page can verify from the current frontend/backend contract</p></div></div><div class="card-body"><div class="monitor-list"><div class="monitor-item"><span>Authentication API</span><strong><span class="status-dot"></span>Session based</strong></div><div class="monitor-item"><span>Prediction API</span><strong><span class="status-dot"></span>Available</strong></div><div class="monitor-item"><span>Prediction storage</span><strong><span class="status-dot"></span>SQLite history</strong></div><div class="monitor-item"><span>Drift detection API</span><strong class="muted">No live endpoint in current backend</strong></div><div class="monitor-item"><span>MLflow live endpoint</span><strong class="muted">No live endpoint in current backend</strong></div></div></div></section>
+</div>
+</main></div>
+<script src="/js/script.js"></script><script src="/js/monitoring.js"></script></body></html>

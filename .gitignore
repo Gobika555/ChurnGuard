@@ -1,0 +1,39 @@
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+.venv/
+venv/
+env/
+
+.vscode/
+
+# Local databases
+*.db
+*.sqlite
+*.sqlite3
+
+# MLflow local files
+mlflow.db
+pipelines/mlflow.db
+pipelines/mlruns/
+
+# Local prediction outputs
+data/predictions.csv
+data/prediction_results.csv
+data/test_customer_data.csv
+
+# Local/temporary project backups
+backend_old/
+backend_same/
+frontend_old/
+
+# Python generated files
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db
+
+data/processed/

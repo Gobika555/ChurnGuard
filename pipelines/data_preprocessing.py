@@ -1,120 +1,195 @@
 import pandas as pd
 import os
-from sklearn.preprocessing import LabelEncoder, StandardScaler
-import joblib
 
-# -------------------------------
-# File Paths
-# -------------------------------
+# ============================================================
+# CHURNGUARD - DATA PREPROCESSING
+# ============================================================
 
-RAW_DATA_PATH = "data/raw/WA_Fn-UseC_-Telco-Customer-Churn.csv"
-PROCESSED_DATA_PATH = "data/processed/processed_data.csv"
+# Input dataset
+INPUT_FILE = "../data/WA_Fn-UseC_-Telco-Customer-Churn.csv"
 
-MODELS_DIR = "models"
-ENCODER_PATH = os.path.join(MODELS_DIR, "encoder.pkl")
-SCALER_PATH = os.path.join(MODELS_DIR, "scaler.pkl")
+# Output processed dataset
+OUTPUT_FILE = "../data/processed_data.csv"
 
-# Create folders if they don't exist
-os.makedirs("data/processed", exist_ok=True)
-os.makedirs(MODELS_DIR, exist_ok=True)
+# Target column
+TARGET_COLUMN = "Churn"
 
-# -------------------------------
-# Load Dataset
-# -------------------------------
 
-print("Loading dataset...")
+# ============================================================
+# 1. LOAD DATASET
+# ============================================================
 
-df = pd.read_csv(RAW_DATA_PATH)
+print("=" * 60)
+print("CHURNGUARD DATA PREPROCESSING")
+print("=" * 60)
 
-print(f"Dataset Shape : {df.shape}")
+print("\nLoading dataset...")
 
-# -------------------------------
-# Dataset Information
-# -------------------------------
+df = pd.read_csv(INPUT_FILE)
 
-print("\nDataset Information")
-print(df.info())
+print("Dataset loaded successfully!")
+print("Original shape:", df.shape)
 
-print("\nMissing Values")
+
+# ============================================================
+# 2. CHECK DATASET
+# ============================================================
+
+print("\nDataset columns:")
+print(df.columns.tolist())
+
+print("\nMissing values:")
 print(df.isnull().sum())
 
-# -------------------------------
-# Remove Duplicates
-# -------------------------------
 
-duplicates = df.duplicated().sum()
+# ============================================================
+# 3. REMOVE CUSTOMER ID
+# ============================================================
 
-print(f"\nDuplicate Records : {duplicates}")
+if "customerID" in df.columns:
+    df = df.drop(columns=["customerID"])
+    print("\ncustomerID removed.")
 
-if duplicates > 0:
-    df.drop_duplicates(inplace=True)
-    print("Duplicates removed.")
 
-# -------------------------------
-# Handle TotalCharges
-# -------------------------------
+# ============================================================
+# 4. CONVERT TOTALCHARGES TO NUMERIC
+# ============================================================
 
-df["TotalCharges"] = pd.to_numeric(
-    df["TotalCharges"],
-    errors="coerce"
-)
+if "TotalCharges" in df.columns:
 
-df["TotalCharges"].fillna(
-    df["TotalCharges"].median(),
-    inplace=True
-)
+    df["TotalCharges"] = pd.to_numeric(
+        df["TotalCharges"],
+        errors="coerce"
+    )
 
-# -------------------------------
-# Drop customerID
-# -------------------------------
+    print("TotalCharges converted to numeric.")
 
-df.drop("customerID", axis=1, inplace=True)
 
-# -------------------------------
-# Encode Categorical Columns
-# -------------------------------
+# ============================================================
+# 5. HANDLE MISSING VALUES
+# ============================================================
 
-encoder = LabelEncoder()
+print("\nHandling missing values...")
 
-categorical_columns = df.select_dtypes(include="object").columns
+# Numeric columns
+numeric_columns = df.select_dtypes(
+    include=["int64", "float64"]
+).columns
+
+for column in numeric_columns:
+
+    if df[column].isnull().sum() > 0:
+
+        df[column] = df[column].fillna(
+            df[column].median()
+        )
+
+
+# Categorical columns
+categorical_columns = df.select_dtypes(
+    include=["object"]
+).columns
 
 for column in categorical_columns:
-     df[column] encoder.fit_transform(df[column])
 
-joblib.dump(encoder, ENCODER_PATH)
+    if df[column].isnull().sum() > 0:
 
-print("\nEncoder saved.")
+        df[column] = df[column].fillna(
+            df[column].mode()[0]
+        )
 
-# -------------------------------
-# Scale Numerical Features
-# -------------------------------
 
-scaler = StandardScaler()
+print("Missing values handled.")
 
-numerical_columns = [
-    "tenure",
-    "MonthlyCharges",
-    "TotalCharges"
-]
 
-df[numerical_columns] = scaler.fit_transform(
-    df[numerical_columns]
+# ============================================================
+# 6. ENCODE TARGET
+# ============================================================
+
+print("\nEncoding target column...")
+
+if TARGET_COLUMN not in df.columns:
+    raise ValueError(
+        f"Target column '{TARGET_COLUMN}' not found."
+    )
+
+df[TARGET_COLUMN] = df[TARGET_COLUMN].map({
+    "No": 0,
+    "Yes": 1
+})
+
+print("Churn encoding:")
+print("No  -> 0")
+print("Yes -> 1")
+
+
+# ============================================================
+# 7. SEPARATE FEATURES AND TARGET
+# ============================================================
+
+X = df.drop(columns=[TARGET_COLUMN])
+y = df[TARGET_COLUMN]
+
+
+# ============================================================
+# 8. ENCODE CATEGORICAL FEATURES
+# ============================================================
+
+print("\nEncoding categorical features...")
+
+X = pd.get_dummies(
+    X,
+    drop_first=True
 )
 
-joblib.dump(scaler, SCALER_PATH)
 
-print("Scaler saved.")
+# ============================================================
+# 9. COMBINE FEATURES AND TARGET
+# ============================================================
 
-# -------------------------------
-# Save Processed Dataset
-# -------------------------------
+processed_df = pd.concat(
+    [X, y],
+    axis=1
+)
 
-df.to_csv(PROCESSED_DATA_PATH, index=False)
 
-print("\nProcessed dataset saved.")
+# ============================================================
+# 10. SAVE PROCESSED DATASET
+# ============================================================
 
-print(f"Location : {PROCESSED_DATA_PATH}")
+processed_df.to_csv(
+    OUTPUT_FILE,
+    index=False
+)
 
-print("\nCleaning Completed Successfully!")
 
-print(df.head())
+# ============================================================
+# 11. DISPLAY RESULTS
+# ============================================================
+
+print("\n" + "=" * 60)
+print("PREPROCESSING COMPLETED")
+print("=" * 60)
+
+print("\nOriginal dataset shape:")
+print(df.shape)
+
+print("\nProcessed dataset shape:")
+print(processed_df.shape)
+
+print("\nFinal missing values:")
+print(
+    processed_df.isnull().sum().sum()
+)
+
+print("\nChurn distribution:")
+print(
+    processed_df[TARGET_COLUMN].value_counts()
+)
+
+print("\nProcessed dataset saved to:")
+print(OUTPUT_FILE)
+
+print("\n" + "=" * 60)
+print("READY FOR MODEL TRAINING")
+print("=" * 60)
